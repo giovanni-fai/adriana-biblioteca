@@ -205,7 +205,8 @@
             </div><!-- .container close -->
         </section><!-- #service close -->
 
-        <section class="call-to-action section">
+        <!-- Formulário de Inscrição -->
+<section class="call-to-action section">
     <div class="container">
         <div class="row">
             <div class="col-md-12 wow text-center">
@@ -219,8 +220,8 @@
                                 <button class="btn btn-default btn-subscription" type="submit">Inscrever-se</button>
                             </span>
                         </form>
-                        <div id="success" style="display: none; color: green;">Inscrição realizada com sucesso!</div>
-                        <div id="error" style="display: none; color: red;">Ocorreu um erro. Tente novamente.</div>
+                        <div id="success-subscription" style="display: none; color: green;">Inscrição realizada com sucesso!</div>
+                        <div id="error-subscription" style="display: none; color: red;">Ocorreu um erro. Tente novamente.</div>
                     </div><!-- /.col-lg-6 -->
                 </div>
             </div>
@@ -228,19 +229,58 @@
     </div>
 </section>
 
-<!-- EmailJS script -->
+<!-- Formulário de Contato -->
+<section id="contact" class="section contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="block">
+                    <div class="heading wow fadeInUp">
+                        <h2>Entre em Contato</h2>
+                        <p>Tem alguma dúvida, sugestão ou quer saber mais sobre nossos livros e promoções? Não hesite em nos enviar uma mensagem!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="form-group">
+                    <form id="contact-form">
+                        <div class="input-field">
+                            <input type="text" class="form-control" placeholder="Seu Nome" name="name" required>
+                        </div>
+                        <div class="input-field">
+                            <input type="email" class="form-control" placeholder="Endereço de E-mail" name="email" required>
+                        </div>
+                        <div class="input-field">
+                            <textarea class="form-control" placeholder="Sua Mensagem" rows="3" name="message" required></textarea>
+                        </div>
+                        <button class="btn btn-send" type="submit">Enviar</button>
+                    </form>
+
+                    <div id="success-contact" style="display: none;">
+                        <p>Sua mensagem foi enviada com sucesso.</p>
+                    </div>
+                    <div id="error-contact" style="display: none;">
+                        <p>Ocorreu um erro ao enviar a mensagem. Tente novamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Script EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
 <script>
-    (function(){
-        emailjs.init("EPftwcL5Z3P11nOLn"); // Substitua "YOUR_PUBLIC_KEY" pela sua chave pública do EmailJS
+    (function() {
+        emailjs.init("EPftwcL5Z3P11nOLn"); // Substitua com sua chave pública
     })();
 
+    // Formulário de Inscrição
     document.getElementById('subscription-form').addEventListener('submit', function(event) {
         event.preventDefault();
-
-        // Exibe mensagens de sucesso ou erro
-        const successMessage = document.getElementById("success");
-        const errorMessage = document.getElementById("error");
+        const successMessage = document.getElementById("success-subscription");
+        const errorMessage = document.getElementById("error-subscription");
 
         emailjs.sendForm("service_dmo5wgr", "template_4rinbjp", this)
             .then(function() {
@@ -251,76 +291,24 @@
                 successMessage.style.display = "none";
             });
     });
+
+    // Formulário de Contato
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const successMessage = document.getElementById("success-contact");
+        const errorMessage = document.getElementById("error-contact");
+
+        emailjs.sendForm("service_dmo5wgr", "template_dh36yc9", this)
+            .then(function() {
+                successMessage.style.display = "block";
+                errorMessage.style.display = "none";
+            }, function(error) {
+                errorMessage.style.display = "block";
+                successMessage.style.display = "none";
+            });
+    });
 </script>
 
-
-
-    <!-- 
-    Contact start
-    ==================== -->
-    <section id="contact" class="section contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="block">
-                        <div class="heading wow fadeInUp">
-                            <h2>Entre em Contato</h2>
-                            <p>Tem alguma dúvida, sugestão ou quer saber mais sobre nossos livros e promoções? Não hesite em nos enviar uma mensagem! Estamos sempre prontos para ajudar e oferecer o melhor suporte. Preencha o formulário abaixo, e entraremos em contato com você o mais rápido possível.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-6 offset-md-3 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="form-group">
-                        <form id="contact-form">
-                            <div class="input-field">
-                                <input type="text" class="form-control" placeholder="Seu Nome" name="name" required>
-                            </div>
-                            <div class="input-field">
-                                <input type="email" class="form-control" placeholder="Endereço de E-mail" name="email" required>
-                            </div>
-                            <div class="input-field">
-                                <textarea class="form-control" placeholder="Sua Mensagem" rows="3" name="message" required></textarea>
-                            </div>
-                            <button class="btn btn-send" type="submit">Enviar</button>
-                        </form>
-
-                        <div id="success" style="display: none;">
-                            <p>Sua mensagem foi enviada com sucesso.</p>
-                        </div>
-                        <div id="error" style="display: none;">
-                            <p>Sua mensagem foi enviada com sucesso.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- EmailJS script -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
-    <script>
-        (function(){
-            emailjs.init("EPftwcL5Z3P11nOLn"); // Substitua "YOUR_PUBLIC_KEY" pela sua chave pública do EmailJS
-        })();
-
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Exibe mensagens de sucesso ou erro
-            const successMessage = document.getElementById("success");
-            const errorMessage = document.getElementById("error");
-
-            emailjs.sendForm("service_dmo5wgr", "template_dh36yc9", this)
-                .then(function() {
-                    successMessage.style.display = "block";
-                    errorMessage.style.display = "none";
-                }, function(error) {
-                    errorMessage.style.display = "block";
-                    successMessage.style.display = "none";
-                });
-        });
-    </script>
 
     <section id="links" class="section links">
     <div class="container">
